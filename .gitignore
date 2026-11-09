@@ -1,5 +1,10 @@
 node_modules/
 .env
+.env.*
+!.env.example
+# Certificado do banco hospedado
+*.pem
+.vercel
 coverage/
 *.log
 # Imagens enviadas pela API (a pasta fica no repositório pelo .gitkeep)

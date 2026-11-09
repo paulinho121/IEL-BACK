@@ -4,6 +4,8 @@ API REST da **Digital Store**, projeto final do módulo de Back-end da Digital C
 
 O front-end da loja está em [paulinho121/IEL-FRONT](https://github.com/paulinho121/IEL-FRONT) (no ar em https://iel-front.vercel.app).
 
+🔗 **API no ar:** https://iel-back.vercel.app · documentação Swagger em https://iel-back.vercel.app/docs
+
 ## Equipe
 
 - Paulo Fernando (trabalho individual)
@@ -172,6 +174,29 @@ npm test
 ```
 
 São 41 testes: unitários (paginação) e de integração cobrindo os 15 endpoints, os status 200/201/204/400/401/404, os filtros da busca, o upload e a remoção de imagens e a transação desfeita em caso de erro. Eles rodam num SQLite em memória, sem precisar de MySQL.
+
+## Deploy
+
+A API roda na [Vercel](https://vercel.com/) como função serverless (`api/index.js` reaproveita o `src/app.js`) e o banco é um MySQL gratuito na [Aiven](https://aiven.io/), acessado com SSL. Cada push no `main` publica uma nova versão.
+
+Variáveis configuradas no painel da Vercel:
+
+| Variável | Uso |
+| --- | --- |
+| `DATABASE_URL` | Service URI do MySQL (`mysql://usuario:senha@host:porta/banco`) |
+| `DB_SSL_CA` | Conteúdo do certificado CA da Aiven |
+| `JWT_SECRET` / `JWT_EXPIRES_IN` | Assinatura e validade do token |
+| `APP_URL` | Endereço público da API, usado para montar a URL das imagens |
+| `MEDIA_DIR` | `/tmp/media`: na Vercel só a pasta temporária aceita escrita |
+
+Para criar as tabelas e os dados de exemplo no banco hospedado, preencha um `.env.production` (com `DATABASE_URL` e `DB_SSL_CA_FILE=ca.pem`) e rode:
+
+```bash
+npm run db:migrate:prod
+npm run db:seed:prod
+```
+
+> As imagens de exemplo (`public/seed`) fazem parte do deploy. Imagens enviadas pela API ficam na pasta temporária da função e podem sumir quando ela reinicia; para guardá-las de vez seria preciso um armazenamento externo (S3, Vercel Blob etc.).
 
 ## Decisões sobre a documentação oficial
 
