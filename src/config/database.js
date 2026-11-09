@@ -1,5 +1,5 @@
 // Configuração do Sequelize, usada tanto pela aplicação quanto pelo sequelize-cli (migrations e seeders)
-require("dotenv").config();
+require("dotenv").config({ quiet: true });
 
 const common = {
   define: {

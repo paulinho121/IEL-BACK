@@ -1,5 +1,5 @@
 // Carrega o .env uma única vez e centraliza as variáveis usadas pela aplicação
-require("dotenv").config();
+require("dotenv").config({ quiet: true });
 
 module.exports = {
   port: Number(process.env.PORT) || 3333,
