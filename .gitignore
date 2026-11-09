@@ -1,0 +1,7 @@
+node_modules/
+.env
+coverage/
+*.log
+# Imagens enviadas pela API (a pasta fica no repositório pelo .gitkeep)
+public/media/*
+!public/media/.gitkeep
